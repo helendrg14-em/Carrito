@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido - DECORAART</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { background: #f8f4f6; 
+            font-family: Poppins, 
+            sans-serif; }
+        header {
+            text-align: center; padding: 20px;
+            background: #671948; 
+            color: white;
+            font-size: 35px; 
+            font-family: "Luckiest Guy", cursive;
+        }
+        .card { border-radius: 18px; }
+        .qr-img { width: 200px; 
+            display: block; 
+            margin: auto; }
+        .btn-finalizar { background: #a13676; border: none; font-size: 18px; padding: 12px; font-weight: bold; }
+        .btn-finalizar:hover { 
+            background-color: #a23f7a;
+                color: aliceblue; }
+    </style>
+</head>
+
+<body>
+
+<header>RESUMEN DEL PEDIDO</header>
+
+<div class="container mt-4">
+
+   
+    <div class="card p-3 shadow mb-4">
+        <h4 class="text-center" style="color:#671948; font-family:'Luckiest Guy';">Datos del Cliente</h4>
+        <p id="infoCliente" class="text-center"></p>
+    </div>
+   
+    <div class="card p-3 shadow mb-4">
+        <h4 class="text-center mb-3" style="color:#671948; font-family:'Luckiest Guy';">Productos en tu Carrito</h4>
+        <table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody id="tablaCarrito"></tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3">Total</th>
+            <th id="totalCarrito"></th>
+        </tr>
+    </tfoot>
+</table>
+    </div>
+
+    <div class="card p-4 shadow mb-4">
+        <h4 class="text-center" style="color:#671948; font-family:'Luckiest Guy';">Pago con QR</h4>
+        <img src="qr.png.jpeg" class="qr-img" alt="Código QR para pago">
+        <p class="text-center mt-3">Sube tu comprobante de pago:</p>
+        <input type="file" class="form-control" id="comprobante">
+    </div>
+
+    <button class="btn btn-finalizar w-100" onclick="finalizarCompra()">
+        Finalizar Pedido ✔
+    </button>
+
+</div>
+
+<script>
+    
+   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function mostrarCarrito() {
+    const tabla = document.getElementById("tablaCarrito"); 
+    tabla.innerHTML = "";
+
+    let total = 0;
+
+    carrito.forEach((item, index) => {
+        let cantidad = item.cantidad || 1; 
+        let subtotal = item.precio * cantidad;
+        total += subtotal;
+
+        let fila = `
+            <tr>
+                <td>${item.nombre}</td>
+                <td>${cantidad}</td>
+                <td>${item.precio.toFixed(2)}</td>
+                <td>${subtotal.toFixed(2)}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="eliminar(${index})">X</button></td>
+            </tr>
+        `;
+        tabla.innerHTML += fila;
+    });
+
+    document.getElementById("totalCarrito").textContent = total.toFixed(2);
+}
+
+function eliminar(i) {
+    carrito.splice(i, 1);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    mostrarCarrito();
+}
+
+let datosCliente = JSON.parse(localStorage.getItem("datosClienteDECORAART")) || {};
+document.getElementById("infoCliente").innerHTML = `
+    <strong>Nombre:</strong> ${datosCliente.nombre || '-'}<br>
+    <strong>Dirección:</strong> ${datosCliente.direccion || '-'}<br>
+    <strong>Teléfono:</strong> ${datosCliente.telefono || '-'}<br>
+    <strong>Correo:</strong> ${datosCliente.correo || '-'}<br>
+    <strong>Ubicación:</strong> ${datosCliente.ubicacion || '-'}
+`;
+
+function finalizarCompra() {
+    if (carrito.length <= 0) {
+        alert("Tu carrito está vacío.");
+        return;
+    }
+
+    if (!document.getElementById("comprobante").value) {
+        alert("Por favor adjunta el comprobante.");
+        return;
+    }
+
+    
+    localStorage.removeItem("carrito");
+    localStorage.removeItem("datosClienteDECORAART");
+    window.location.href = "gracias.html";
+}
+
+mostrarCarrito();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DECORAART – Catálogo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://media.istockphoto.com/id/1456467039/es/foto/hermosa-sala-de-estar-y-cocina-en-nueva-casa-de-lujo-con-gabinetes-blancos-vigas-de-madera.jpg?s=612x612&w=0&k=20&c=Di2TyNDqpmE78gFltOMPKz9AsjeOp10mXRUjdPObfCM=");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.30;
+            z-index: -1;
+        }
+        
+       
+        #Titulo {
+            background-color: #671948;
+            color: white;
+            text-align: center;
+            font-family: "Luckiest Guy", cursive;
+            font-size: 60px;
+            padding: 25px;
+            margin: 0;
+        }
+        
+        #CAT {
+            font-family: "Luckiest Guy", cursive; 
+            text-align: center;
+            padding: 25px;
+            font-size: 30px;
+            color: #f4e5ec;
+            background-color: rgb(204, 152, 152);
+        }
+        
+        .catalogo-titulo { 
+            text-align: center;
+            padding: 25px;
+            font-size: 48px;
+            color: #5a1d41; 
+             font-family: "Luckiest Guy", cursive; 
+            margin-bottom: 20px; 
+        }
+
+    
+        #mensajeCarrito {
+            display: none;
+            background: #d6ffe0;
+            border-left: 6px solid #2ecc71;
+            padding: 10px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            z-index: 1050; 
+            position: fixed;
+            top: 60px; 
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        
+        .descripcion-corta {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            
+            -webkit-box-orient: vertical;
+        }
+
+        
+        .card-producto {
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+            border-radius: 15px;
+            transition: transform .2s;
+        }
+        .card-producto img {
+            height: 230px; 
+            object-fit: cover;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            text-align: justify;
+        }
+        .card-body button.btn-primary {
+            margin-top: auto; 
+        }
+        .card-producto:hover {
+            transform: scale(1.04);
+        }
+        
+    </style>
+</head>
+
+<body>
+
+<h1 id="Titulo">BIENVENIDO A DECORAART</h1>
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top"> <div class="container-fluid">
+            <a class="navbar-brand" href="#">DECORAART</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Principal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#populares">Populares</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#descuentos">Descuentos</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">MÁS</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#cocina">Decoración Cocina</a></li>
+                            <li><a class="dropdown-item" href="#sala">Decoración Sala</a></li>
+                            <li><a class="dropdown-item" href="#dormitorio">Decoración Dormitorio</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="ms-auto">
+                    <span class="navbar-text">
+                🛒 Carrito:
+                <span class="badge bg-warning text-dark" id="cart-count">0</span>
+            </span>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero text-white py-5 mb-4">
+    <div class="container hero-content" style="background-color: rgb(33, 44, 40); padding: 20px;">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="display-4 fw-bold">Tienda DECORACION</h1>
+                <p class="lead">La decoracion del hogar es muy importante, no solo te desestresas haciendolo, sino te diviertes</p>
+                <button class="btn btn-outline-light btn-lg" onclick="procesarCompra()">Procesar compra</button>
+
+            </div>
+            <div class="col-md-5 mt-4 mt-md-0">
+                <div class="bg-dark bg-opacity-50 p-4 rounded-3">
+                    <h2 class="h4">Ofertas del día</h2>
+                    <ul class="mb-0">
+                        <li>Hasta 40% de descuento en chaquetas.</li>
+                        <li>Envío gratis a partir de Bs. 70.</li>
+                        <li>3 y 6 cuotas sin interés.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div id="mensajeCarrito">Producto agregado al carrito ✔</div>
+
+<section class="container-fluid mt-4" id="descuentos">
+    <h3 id="CAT">Catálogo de productos</h3>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5 px-3" id="listaProductos">
+        
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/244518-1200-auto?v=637736277682700000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Persiana Mini Blind Beige">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Persiana Mini Blind Beige</h5>
+                    <p  id="desc1">
+                        Una persiana es un elemento mecánico que se coloca en el exterior o interior de un balcón 
+                        o ventana para regular el paso de la luz y el control de la privacidad.
+                        <b>SKU:</b> DEC001 <br>
+                        <b>Nombre:</b>Elegante jarrón blanco para sala. <br>
+                        <b>Descripción:</b> Alto: 163 cm Ancho: 117 cm<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Fácil de instalar</li>
+                            <li>Fácil de limpiar</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 118,93</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Persiana Mini Blind', 118.93)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/340716-1200-auto?v=638920819784600000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Jgo de espejos june dorado">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Jgo de espejos june dorado</h5>
+                    <p  id="desc2">
+                        Es un reloj, antiguo y modrno a la vez con una decoracion sencilla pero elegante.
+                        <b>SKU:</b> DEC002 <br>
+                        <b>Nombre:</b>Jgo de espejos june dorado <br>
+                        <b>Descripción:</b> JG ESPEJOS 3PZ 25X25X2CM<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>3 espejos</li>
+                            <li>Color: Dorado</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 169,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Jgo de espejos', 169.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/319799-1200-auto?v=638845604382470000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Jarron Caja rojo">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Jarrón Caja rojo</h5>
+                    <p >
+                        Aporta un toque moderno y sofisticado a tu hogar con el jarrón Caja de Mica Decorations. Confeccionado en metal de alta calidad, este jarrón destaca por su diseño geométrico y acabado en vibrante color rojo
+                        <b>SKU:</b> DEC003 <br>
+                        <b>Nombre:</b>Jarron Caja rojo <br>
+                        <b>Descripción:</b><br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Marca: Mica Decorations</li>
+                            <li>Material: Metal</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 399,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Jarrón Caja', 399.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/324081-1200-auto?v=638856066351770000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Planta C/Pote">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Planta C/Pote</h5>
+                    <p >
+                        Dale vida y frescura a tu espacio con esta planta con pote decorativo de la marca Concepts. Su diseño realista y vibrante tonalidad verde crean un ambiente acogedor y armonioso, aportando un toque natural sin necesidad de mantenimiento.
+                        <b>SKU:</b> DEC004 <br>
+                        <b>Nombre:</b>Planta C/Pote<br>
+                        <b>Descripción:</b> Marca: Concepts Material: Plástico Color: Verde<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Materiales de alta calidad</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 191,92</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Planta C/Pote', 191.92)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/313376-1200-auto?v=638835490054970000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="CORTINAS BLACKOUT">
+                <div class="card-body">
+                    <h5 class="card-title text-center">CORTINAS BLACKOUT</h5>
+                    <p >
+                        Ideales para garantizar un descanso ininterrumpido, estas cortinas bloquean eficazmente la luz exterior, protegen tu privacidad y contribuyen a regular la temperatura de tu hogar.
+                        <b>SKU:</b> DEC005 <br>
+                        <b>Nombre:</b>CORTINAS BLACKOUT 229x135 cm <br>
+                        <b>Descripción:</b>Marca: CONCEPTS Material: Poliéster Color: Beige Opaca<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Largo: 229 cm</li>
+                            <li>Ancho: 135 cm</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 349,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Cortinas Blackout', 349.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/240450-1200-auto?v=637666509738700000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Portaretrato BELGICA">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Portaretrato BELGICA</h5>
+                    <p >
+                        Este Portaretrato de fotos se ve hermoso, está hecho de una calidad hermosa y también es atemporal. Por lo tanto, elija rápidamente una buena foto que desee colocar en este marco de fotos.
+                        <b>SKU:</b> DEC006 <br>
+                        <b>Nombre:</b>Portaretrato BELGICA<br>
+                        <b>Descripción:</b> Llamativo para decoración de tu escritorio o mesa.<br>
+                        <b>Detalle:</b> Madera
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 49,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Portaretrato', 49.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/289144-1200-auto?v=638470569293500000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Alfombra Re fold vintage arabic cafée">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Alfombra Re fold vintage arabic cafée</h5>
+                    <p >
+                        La colección RE_FOLD, certificada por QA-CER, ofrece una gama de alfombras de interior sostenibles, multicolores y plegables con un aspecto vintage desgastado. 
+                        <b>SKU:</b> DEC007 <br>
+                        <b>Nombre:</b>Alfombra Re fold vintage <br>
+                        <b>Descripción:</b> Sostenibles porque están fabricados a partir de residuos de producción de algodón y poliéster reciclados<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Color cafe</li>
+                            <li>Tamaño: 160 x 230 cm</li>
+                            <li>Material 40% PP Y 20% rec PES Y 40% PET RECICLADO</li>
+                        </ul>
+                    </p> 
+                    <p class="mt-2"><b>Precio:</b> Bs 1.494,35</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Alfombra', 1494.35)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/340703-1200-auto?v=638920819762270000&width=1200&height=auto&aspect=true" 
+                     class="card-img-top" alt="Reloj de arena june dorado">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Reloj de arena june dorado</h5>
+                    <p >
+                        Una persiana es un elemento mecánico que se coloca en el exterior o interior de un balcón 
+                        o ventana para regular el paso de la luz y el control de la privacidad.
+                        <b>SKU:</b> DEC008 <br>
+                        <b>Nombre:</b>Reloj de arena june dorado <br>
+                        <b>Descripción:</b> RELOJ D/ARENA 7.6X7.6X14CM<br>
+                        <b>Detalle:</b> Ideal para su hogar
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 179,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Reloj de arena', 179.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+---
+
+<section id="populares" class="container mt-4">
+    <div id="listaProductos">
+    <h3 class="catalogo-titulo" style="background-color: rgb(140, 81, 99); color: azure; padding: 20px;">Productos Populares </h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5 px-3">
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/337210-1200-auto?v=638895919413100000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Zapatero 3 Niveles">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Zapatero 3 Niveles</h5>
+                    <p >
+                        Ideal para organizar tu calzado con eficiencia. Diseño práctico de 3 niveles en acero inoxidable, color negro.
+                        <b>SKU:</b> DEC009 <br>
+                        <b>Nombre:</b>Zapatero 3 Niveles <br>
+                        <b>Descripción:</b> Capacidad maxima 3 kg por capa<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Acero Inoxidable</li>
+                            <li>Color Negro</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 169,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Zapatero 3 Niveles', 169.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/204444-1200-auto?v=636959634458670000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Soporte de copas">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Soporte de copas</h5>
+                    <p >
+                        Soporte elegante y funcional para copas. Optimiza el espacio en tu cocina o bar.
+                        <b>SKU:</b> DEC010 <br>
+                        <b>Nombre:</b>Soporte de copas <br>
+                        <b>Descripción:</b> La capacidad varía, dependiendo del tamaño de las copas<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Color: Blanco</li>
+                            <li>Acabado: Acero plastificado y/o pintado</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 69,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Soporte de copas', 69.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/341379-1200-auto?v=638933112596930000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Bata de bano adulto">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Bata de bano adulto</h5>
+                    <p >
+                        Sumérgete en la experiencia de confort y bienestar con esta bata. 100% algodón, suave y cómoda.
+                        <b>SKU:</b> DEC011 <br>
+                        <b>Nombre:</b>Bata de bano adulto <br>
+                        <b>Descripción:</b> Desarrollado en 100% algodón, con tejido suave y aterciopelado para un toque extra suave y cómodo<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Absorción: Posee un gramaje de 280 g/m²</li>
+                            <li>Cuenta con manga 3/4</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 499,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/342006-1200-auto?v=638935470448730000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Portarrollos de papel higienico">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Portarrollos de papel higienico</h5>
+                    <p >
+                        Su diseño ha sido pensado para ofrecer resistencia, durabilidad y un acabado impecable que aporta un aire sofisticado a cualquier baño
+                        <b>SKU:</b> DEC012 <br>
+                        <b>Nombre:</b>Portarrollos de papel <br>
+                        <b>Descripción:</b> Material fácil de limpiar que conserva su brillo y apariencia con un mantenimiento mínimo.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>Largo: aproximadamente 15 cm</li>
+                            <li>Peso: aproximadamente 300 gramos</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 189,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Portarrollos', 189.90)"> Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+---
+
+<section id="cocina" class="container mt-4">
+    <h3 class="catalogo-titulo" style="background-color: rgb(140, 81, 99); color: azure;"> Decoración Cocina </h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5 px-3">
+        <div class="col">
+            <div class="card card-producto shadow h-100">
+                <img src="https://multicenter.vtexassets.com/arquivos/ids/343368-320-320?v=638959808074730000&width=320&height=320&aspect=true" class="card-img-top" alt="Producto Cocina 1">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sonso Bites</h5>
+                    <p >
+                        Su diseño ha sido pensado para ofrecer resistencia, durabilidad y un acabado impecable que aporta un aire sofisticado a cualquier baño
+                        <b>SKU:</b> DEC013 <br>
+                        <b>Nombre:</b>Sonso Bites <br>
+                        <b>Descripción:</b> apacidad de 6 brownies x lado<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li>material de aluminio. </li>
+                            <li>Cable de 70 cm.</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 297,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Portarrollos', 189.90)"> Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/328993-1200-auto?v=638873608837900000&width=1200&height=auto&aspect=true" class="card-img-top" alt="MICROONDAS 31LTRS ELECTROLUX">
+                <div class="card-body">
+                    <h5 class="card-title text-center">MICROONDAS 31LTRS ELECTROLUX</h5>
+                    <p >
+                        Haz que cada comida sea más rápida y deliciosa con el microondas Electrolux de 31 litros.
+                        <b>SKU:</b> DEC014 <br>
+                        <b>Nombre:</b>MICROONDAS 31LTRS ELECTROLUX <br>
+                        <b>Descripción:</b> Equipado con múltiples niveles de potencia, funciones automáticas y un panel de control intuitivo, es ideal para quienes buscan comodidad sin complicaciones.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Puerta espejada: Aporta un toque de elegancia al diseño.</li>
+                            <li>Elimina olores: Mantiene el interior limpio</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b> Bs 1.799,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/252543-1200-auto?v=637866957895670000&width=1200&height=auto&aspect=true" class="card-img-top" alt="MICROONDAS 31LTRS ELECTROLUX">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Exprimidor de Cítricos</h5>
+                    <p >
+                        Logra una mejor extracción del jugo con la rotación bidireccional de este exprimidor. Además de práctico y compacto, tiene un colador que separa las semillas y la pulpa.
+                        <b>SKU:</b> DEC015 <br>
+                        <b>Nombre:</b>Exprimidor de Cítricos <br>
+                        <b>Descripción:</b> Los conos de jugos con inversión automática brindan la máxima extracción de jugo. Diseño compacto.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Capacidad Marca: Brügmann700ml.</li>
+                            <li></li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 117,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/340664-1200-auto?v=638920819711770000&width=1200&height=auto&aspect=true" class="card-img-top" alt="MICROONDAS 31LTRS ELECTROLUX">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Elefante decorativo poly dorado </h5>
+                    <p >
+                        Un elefante color dorado, uno de los mas usasdo mundialmente
+                        <b>SKU:</b> DEC016 <br>
+                        <b>Nombre:</b>Elefante decorativo poly dorado  <br>
+                        <b>Descripción:</b> Ideal para que su cocina se vea mejor<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> ELEFANTE DECOR 16X7X14.5CM</li>
+                            <li>Color: Dorado</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 229,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    
+</section>
+
+---
+
+<section id="sala" class="container mt-4">
+    <h3 class="catalogo-titulo" style="background-color: rgb(140, 81, 99); color: azure;"> Decoración Sala </h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5 px-3">
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/318627-1200-auto?v=638842288255270000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Portaretrato casita">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Portaretrato casita</h5>
+                    <p >
+                        Un elefante color dorado, uno de los mas usasdo mundialmente
+                        <b>SKU:</b> DEC017 <br>
+                        <b>Descripción:</b> Ideal para que su sala se vea mejor<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Portaretrato casita 36x40x27cm</li>
+                            <li>Material:MDF</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs Bs 129,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/311696-1200-auto?v=638830182481970000&width=1200&height=auto&aspect=true" class="card-img-top" alt="MICROONDAS 31LTRS ELECTROLUX">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Cuadro decorativo Runa</h5>
+                    <p >
+                        Su diseño exclusivo aporta profundidad y carácter a cualquier habitación, convirtiéndose en el centro de todas las miradas.
+                        <b>SKU:</b> DEC018 <br>
+                        
+                        <b>Descripción:</b> Ideal para que su cocina se vea mejor<br>
+                        <b>Detalle:</b> Perfecto para quienes buscan una decoración con personalidad y encanto. ¡Haz que tu hogar refleje tu buen gusto con el Cuadro Decorativo Runa!
+                        <ul>
+                            <li> Marca: Boltze</li>
+                            <li>Material: Madera y lona</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 370,93</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Bata de bano', 499.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/308573-1200-auto?v=638781907720970000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Portaretrato casita">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Maceta con planta suculenta</h5>
+                    <p >
+                        Agrega un toque de verde con esta hermosa maceta decorativa, perfecta para cualquier rincón de tu hogar u oficina.
+                        <b>SKU:</b> DEC019 <br>
+                        <b>Descripción:</b> Ideal para que su sala se vea mejor<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Maceta de cerámica con diseño moderno.</li>
+                            <li>Incluye planta suculenta artificial de aspecto realista.</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 85,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Maceta Suculenta', 85.00)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-producto shadow h-100"> <img src="https://multicenter.vtexassets.com/arquivos/ids/331393-1200-auto?v=638879685937100000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Espejo Decorativo Redondo">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Espejo Decorativo Redondo</h5>
+                    <p >
+                        Espejo de pared con marco moderno, ideal para ampliar visualmente espacios y añadir elegancia.
+                        <b>SKU:</b> DEC020 <br>
+                        <b>Descripción:</b> Apto para sala, recibidor o dormitorio.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Diámetro: 60 cm.</li>
+                            <li>Marco de metal negro.</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 599,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Espejo Redondo', 599.00)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+---
+
+<section id="dormitorio" class="container mt-4">
+    <h3 class="catalogo-titulo" style="background-color: rgb(140, 81, 99); color: azure;"> Decoración Dormitorio </h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-5 px-3">
+        <div class="col">
+            <div class="card card-producto shadow h-100"> 
+                <img src="https://multicenter.vtexassets.com/arquivos/ids/311592-1200-auto?v=638830094137870000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Maceta">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Maceta Decorativa Cilindro</h5>
+                    <p >
+                        Maceta de cerámica con diseño minimalista, ideal para plantas de interior.
+                        <b>SKU:</b> DEC021 <br>
+                        <b>Descripción:</b> Color blanco mate. Diseño nórdico.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Altura: 20 cm.</li>
+                            <li>Material: Cerámica</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 150,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Maceta Cilindro', 150.00)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> 
+                <img src="https://multicenter.vtexassets.com/arquivos/ids/315758-1200-auto?v=638842106734170000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Alfombra">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Alfombra Pelo Largo Gris</h5>
+                    <p class="card-text small descripcion-corta">
+                        Alfombra suave y mullida de pelo largo, perfecta para añadir calidez y confort a tu dormitorio.
+                        <b>SKU:</b> DEC022 <br>
+                        <b>Descripción:</b> Fibra de poliéster de alta densidad. Fácil de limpiar.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Tamaño: 120x180 cm.</li>
+                            <li>Color: Gris Ceniza</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 780,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Alfombra Pelo Largo', 780.00)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> 
+                <img src="https://multicenter.vtexassets.com/arquivos/ids/319662-1200-auto?v=638845233182870000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Juego de Sabanas">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Juego de Sábanas King Microfibra</h5>
+                    <p >
+                        Juego de sábanas ultra suaves de microfibra, transpirables y resistentes a las arrugas.
+                        <b>SKU:</b> DEC023 <br>
+                        <b>Descripción:</b> Incluye sábana encimera, sábana bajera ajustable y dos fundas de almohada.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Tamaño: King.</li>
+                            <li>Material: Microfibra cepillada</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 450,00</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Juego Sabanas', 450.00)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-producto shadow h-100"> 
+                <img src="https://multicenter.vtexassets.com/arquivos/ids/311267-1200-auto?v=638827993082330000&width=1200&height=auto&aspect=true" class="card-img-top" alt="Lampara de Mesa">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Lámpara de Mesa Vintage</h5>
+                    <p >
+                        Lámpara de mesa con base de madera y pantalla de tela, perfecta para una luz ambiental cálida.
+                        <b>SKU:</b> DEC024 <br>
+                        <b>Descripción:</b> Diseño clásico vintage con interruptor de cordón.<br>
+                        <b>Detalle:</b> 
+                        <ul>
+                            <li> Altura: 35 cm.</li>
+                            <li>Voltaje: 110V</li>
+                        </ul>
+                    </p>
+                    <p class="mt-2"><b>Precio:</b>Bs 299,90</p>
+                    <button class="btn btn-primary w-100" onclick="agregarCarrito('Lampara Mesa', 299.90)">
+                        Agregar a Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="carrito.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<h2 style="padding: 30px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><center>^^NUEVAMENTE BIENVENIDO A DECORART^^</center></h2>
+</body>
+
+<footer class="py-4 mt-auto" style="background-color: #5a1d41; color: aliceblue; padding: 50px; font-size: 35px;" >
+    <div class="container text-center">
+        <p class="small mb-0">© 2025 UrbanStyle - Tienda de ropa</p>
+    </div>
+</footer>
+
+</html>
